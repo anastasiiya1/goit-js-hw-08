@@ -49,6 +49,8 @@ const images = [
 const galleryList = document.querySelector('.gallery');
 
 galleryList.addEventListener('click', function (event) {
+  event.preventDefault();
+  
   if (event.target.classList.contains('gallery-image')) {
     const modalImage = event.target.getAttribute('data-source');
 
