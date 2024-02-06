@@ -47,12 +47,21 @@ const images = [
 ];
 
 const galleryList = document.querySelector('.gallery');
-galleryList.addEventListener('click', function(event) {
-  if (event.target.classList.contains('gallery-link')) {
-    console.log(event.target.href);
-    event.preventDefault();
+
+galleryList.addEventListener('click', function (event) {
+  if (event.target.classList.contains('gallery-image')) {
+    const modalImage = event.target.getAttribute('data-source');
+
+    openModal(modalImage);
   }
 });
+
+function openModal(imageLink) {
+  const instance = basicLightbox.create(`<img src="${imageLink}" width="800" height="600">`);
+ 
+  instance.show();
+};
+
 
 images.forEach(image => {
   const galleryItem = document.createElement('li');
@@ -67,15 +76,10 @@ images.forEach(image => {
   galleryImage.src = image.preview;
   galleryImage.setAttribute('data-source', image.original);
   galleryImage.alt = image.description;
-  galleryImage.width = 360; 
+  galleryImage.width = 360;
   galleryImage.height = 200;
 
   galleryLink.appendChild(galleryImage);
   galleryItem.appendChild(galleryLink);
   galleryList.appendChild(galleryItem);
 });
-
-const instance = basicLightbox.create(`
-	<h1>Dynamic Content</h1>
-	<p>You can set the content of the lightbox with JS.</p>
-`)
